@@ -38,7 +38,7 @@ for word in my_file_list:
     words_encountered[word] = words_encountered.get(word, 0) + 1
 
 # for word, frequency in words_encountered.items():
-#     print "%s appears %d times" % (word, frequency)
+#   print "%s appears %d times" % (word, frequency)
 
 
 # both ways produce the same result!
@@ -60,5 +60,6 @@ entries.sort(key=lambda tup: tup[1], reverse=True)
 # print entries
 
 # print the top ten most commonly-appearing words
-for i in range(10):
-    print entries[i]
+top_ten = entries[:10]
+for word in top_ten:
+    print word

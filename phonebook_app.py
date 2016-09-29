@@ -9,6 +9,7 @@ if exists('phonebook.pickle'):
 else:
     phonebook_dict = {}
 
+tab = " " * 4
 prompt = "> "
 using_app = True
 def more_changes_offer():
@@ -35,16 +36,16 @@ while using_app:
 
     What do you want to do (1-7)?
     """
-    menu_choice = int(raw_input(prompt))
+    menu_choice = raw_input(prompt)
 
-    if menu_choice == 1:
+    if menu_choice == "1":
         for contact in sorted(phonebook_dict):
-            print (" " * 4) + contact
+            print tab + contact
             print "\tHome: %s" % phonebook_dict[contact].get('home', "")
             print "\tWork: %s" % phonebook_dict[contact].get('work', "")
             print "\tMobile: %s" % phonebook_dict[contact].get('mobile', "")
-    elif menu_choice == 2:
-        print "Enter name to search for:"
+    elif menu_choice == "2":
+        print tab + "Enter name to search for:"
         search = raw_input(prompt).capitalize()
         if search in phonebook_dict:
             print (" " * 4) + search
@@ -52,37 +53,37 @@ while using_app:
             print "\tWork: %s" % phonebook_dict[search].get('work', "")
             print "\tMobile: %s" % phonebook_dict[search].get('mobile', "")
         else:
-            print 'Contact not found'
-    elif menu_choice == 3:
-        print "Enter new contact's name:"
+            print tab + "Contact not found"
+    elif menu_choice == "3":
+        print tab + "Enter new contact's name:"
         new_name = raw_input(prompt).capitalize()
         phonebook_dict[new_name] = {}
-        print "Do you want to enter a home, work, or mobile number?"
+        print tab + "Enter either 'home', 'work', or 'mobile':"
         decision = raw_input(prompt).lower()
         if decision == "home":
-            print "Enter contact's home phone number:"
+            print tab + "Enter contact's home phone number:"
             new_phone = raw_input(prompt)
             phonebook_dict[new_name]['home'] = new_phone
         elif decision == "work":
-            print "Enter contact's work phone number:"
+            print tab + "Enter contact's work phone number:"
             new_phone = raw_input(prompt)
             phonebook_dict[new_name]['work'] = new_phone
         elif decision == "mobile":
-            print "Enter contact's mobile phone number:"
+            print tab + "Enter contact's mobile phone number:"
             new_phone = raw_input(prompt)
             phonebook_dict[new_name]['mobile'] = new_phone
         else:
-            print "Invalid option"
-        print "New contact '%s' saved" % new_name
-    elif menu_choice == 4:
-        print "Enter name of the contact to modify:"
+            print tab + "Invalid option"
+        print tab + "New contact '%s' saved" % new_name
+    elif menu_choice == "4":
+        print tab + "Enter name of the contact to modify:"
         name = raw_input(prompt).capitalize()
         if name in phonebook_dict:
             modifying = True
             while modifying == True:
-                print "Enter 'name', 'home', 'work', or 'mobile':"
+                print tab + "Enter 'name', 'home', 'work', or 'mobile':"
                 decision = raw_input(prompt)
-                print "Enter new %s:" % decision
+                print tab + "Enter new %s:" % decision
                 change = raw_input(prompt)
                 if decision == "name":
                     phonebook_dict[name] = change
@@ -97,27 +98,28 @@ while using_app:
                     phonebook_dict[name]['mobile'] = change
                     more_changes_offer()
                 else:
-                    pass
+                    "Invalid option"
+                    modifying = False
         else:
-            print "Contact not found"
-    elif menu_choice == 5:
-        print "Enter name of the contact to delete:"
+            print tab + "Contact not found"
+    elif menu_choice == "5":
+        print tab + "Enter name of the contact to delete:"
         name_to_delete = raw_input(prompt).capitalize()
         if name_to_delete in phonebook_dict:
             del phonebook_dict[name_to_delete]
-            print "Contact '%s' deleted" % name_to_delete
+            print tab + "Contact '%s' deleted" % name_to_delete
         else:
-            print 'Contact not found'
-    elif menu_choice == 6:
+            print tab + "Contact not found"
+    elif menu_choice == "6":
         # open the file in write mode
         phonebook = open('phonebook.pickle', 'w')
         # dump the contents of the phonebook dictionary into the open file
         pickle.dump(phonebook_dict, phonebook)
         # close the file
         phonebook.close()
-        print "Changes saved successfully"
-    elif menu_choice == 7:
-        print "Goodbye!"
+        print tab + "Changes saved successfully"
+    elif menu_choice == "7":
+        print tab + "Goodbye!"
         using_app = False
     else:
-        print "Invalid option"
+        print tab + "Invalid option"
